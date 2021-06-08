@@ -167,6 +167,7 @@
 </template>
 <script>
 import { reactive, toRefs, getCurrentInstance } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 // import { login } from "@/api/user";
 import { setToken } from '@/libs/util';
 // import svgPath from '@/config/svgPath.js'
@@ -200,6 +201,8 @@ export default {
     aLayoutFooter: Layout.Footer
   },
   setup () {
+    const route = useRoute();
+    const router = useRouter();
     const state = reactive({
       loginForm: {
         username: '',
@@ -306,8 +309,24 @@ export default {
       //   state: vue.$config.state,
       //   redirect_uri: vue.$config.redirect_uri
       // };
-      window.location.href = `https://github.com/login/oauth/authorize?client_id=${config.clientId}&redirect_uri=${config.redirect_uri}`;
-      // window.open();
+      // window.location.href = `https://github.com/login/oauth/authorize?client_id=${config.clientId}&redirect_uri=${config.redirect_uri}`;
+      const src = `https://github.com/login/oauth/authorize?client_id=${config.clientId}&redirect_uri=${config.redirect_uri}`;
+      const strWindowFeatures = `
+          menubar=false,
+          location=false,
+          resizable=false,
+          scrollbars=false,
+          status=false,
+          width=400,
+          height=400
+      `;
+      const win = window.open(src, 'oauth', strWindowFeatures);
+      console.log('win', win);
+      win.closeOauth = () => {
+        // 关闭授权页面并跳转到首页
+        win.close();
+        router.push({ name: 'recommend' });
+      };
       // console.log('正常登录');
       // setToken('65a4s65fas');
       // console.log(vm);
@@ -359,11 +378,15 @@ export default {
 </script>
 <style scoped lang="less">
 .container {
-  height: 100%;
-  background-image: url('../../assets/background/loginbgm.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: #b8e5f8;
+    display: flex;
+        background-image: url('../../assets/background/loginbgm.png');
+
+    background-repeat: no-repeat;
+    background-color: #b8e5f8;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
 
   .homePage-logo {
     width: 128px;
@@ -372,6 +395,7 @@ export default {
   }
 
   .homePage-content {
+
     display: flex;
     flex-direction: column;
     flex: 1 1;

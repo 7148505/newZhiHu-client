@@ -358,7 +358,7 @@ export default {
     const vm = getCurrentInstance().proxy;
     const state = reactive({
       headerTabsList: [
-        { id: 'Ii@tf7', title: '首页', to: { name: 'Home' }},
+        { id: 'Ii@tf7', title: '首页', to: { name: 'home' }},
         { id: '^fZyDB', title: '发现', to: '/asd' },
         { id: 'ZnRZaE', title: '等你来答', to: '/ccs' }
       ],
@@ -375,7 +375,7 @@ export default {
       //
       setToken('');
       message.info('已退出登录~');
-      vm.$router.push('/Login');
+      vm.$router.push('/login');
     };
     const handleScroll = (e) => {
       state.scrollTop =

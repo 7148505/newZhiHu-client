@@ -7,38 +7,18 @@ import { getGitHubUserInfo } from '@/api/oauth.js';
 
 const { homeName } = config;
 import routes from './routers';
-const LOGIN_PAGE_NAME = 'Login';
+const LOGIN_PAGE_NAME = 'login';
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 });
+console.log('homename', homeName);
 router.beforeEach((to, from, next) => {
   const token = getToken();
   if (!token && to.name === 'oauth') {
     // 授权页面
     console.log('授权页面', to, from);
-    getGitHubUserInfo({
-      client_id: '05836262c1c99fc6f393',
-      client_secret: '56c0601c0b20edbf954ed79e8b90a3030cd6aa7d',
-      code: to.query.code
-    })
-      .then((res) => {
-        // console.log(res);
-        if (res.status === 200) {
-          console.log(res);
-          setToken(res.token);
-          if (from.query.redirectPath) {
-            next({
-              path: from.query.redirectPath
-            });
-          } else {
-            next({ name: homeName });
-          }
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    next();
     // https://github.com/login/oauth/access_token
   } else if (!token && to.name !== LOGIN_PAGE_NAME) {
     // const targetRoute = to.query;

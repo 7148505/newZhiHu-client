@@ -3,7 +3,7 @@
   "version": "0.1.5",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development vue-cli-service serve --watch --open --fix",
+    "serve": "cross-env NODE_ENV=development vue-cli-service serve --watch --open --fix",
     "build": "cross-env NODE_ENV=production npm_config_gzip=true npm_config_report=false vue-cli-service   build",
     "eslint": "eslint --fix --ext .js,.vue src",
     "lint": "eslint --no-error-on-unmatched-pattern --ext .vue --ext .js --ext .jsx --fix",
@@ -13,7 +13,7 @@
     "ant-design-vue": "^2.0.0-rc.5",
     "axios": "^0.21.1",
     "js-cookie": "^2.2.1",
-    "vue": "^3.0.4",
+    "vue": "^3.1.1",
     "vue-router": "^4.0.1",
     "vuex": "^4.0.0-rc.2"
   },
